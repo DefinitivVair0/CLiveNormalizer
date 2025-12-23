@@ -1,0 +1,76 @@
+﻿<Window x:Class="CLiveNormalizer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CLiveNormalizer"
+        xmlns:ScottPlot="clr-namespace:ScottPlot.WPF;assembly=ScottPlot.WPF"
+        mc:Ignorable="d"
+        Title="Continuous Live Normalizer by DefinitivVair0" Width="1020" Height="592" WindowStartupLocation="CenterScreen" Background="White" MinHeight="300" MinWidth="1020" Closing="Window_Closing">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="115"/>
+        </Grid.RowDefinitions>
+
+        <ScottPlot:WpfPlot x:Name="Plot_DB" Grid.Row="0" />
+        <GroupBox Header="Settings" Height="115" VerticalAlignment="Center" Grid.Row="1">
+            <Grid Margin="0,0,-2,0" Height="75">
+                <ComboBox x:Name="CB_Device" HorizontalAlignment="Left" Margin="55,26,0,0" VerticalAlignment="Top" Width="204" SelectionChanged="SetDevice"/>
+                <Label Content="Device" HorizontalAlignment="Left" Margin="0,24,0,0" VerticalAlignment="Top"/>
+                <ComboBox x:Name="CB_Api" HorizontalAlignment="Left" Margin="55,2,0,0" VerticalAlignment="Top" Width="204" SelectionChanged="GetDevices">
+                    <ComboBox.Background>
+                        <LinearGradientBrush EndPoint="0,1">
+                            <GradientStop Color="#FFF0F0F0"/>
+                            <GradientStop Color="#FFE5E5E5" Offset="1"/>
+                        </LinearGradientBrush>
+                    </ComboBox.Background>
+                    <ComboBoxItem Content="WaveIn"/>
+                    <ComboBoxItem Content="ASIO"/>
+                    <ComboBoxItem Content="WASAPI"/>
+                    <ComboBoxItem Content="WASAPI (LB)"/>
+                </ComboBox>
+                <Label Content="API" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="1.23,0.965" Margin="0,2,0,0"/>
+                <ComboBox x:Name="CB_Channel" HorizontalAlignment="Left" Margin="55,50,0,0" VerticalAlignment="Top" Width="204" SelectedIndex="0" IsEnabled="False"/>
+                <Label Content="Channel" HorizontalAlignment="Left" Margin="0,50,0,0" VerticalAlignment="Top"/>
+                <Button x:Name="BTN_Start" Content="Start" VerticalAlignment="Top" Click="BTN_Start_Click" Margin="0,3,142,0" Background="#FFA0FFA0" HorizontalAlignment="Right" Width="100"/>
+                <Button x:Name="BTN_Stop" Content="Stop" Margin="0,53,142,0" Click="BTN_Stop_Click" Background="#FFFFA0A0" Height="20" VerticalAlignment="Top" HorizontalAlignment="Right" Width="100"/>
+                <CheckBox x:Name="CkB_Format" Content="" HorizontalAlignment="Left" Margin="373,7,0,0" VerticalAlignment="Top" Width="20"/>
+                <TextBox x:Name="TB_Samplerate" HorizontalAlignment="Left" Margin="373,28,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="27" TextAlignment="Right"/>
+                <Label Content="kHz" HorizontalAlignment="Left" Margin="400,24,0,0" VerticalAlignment="Top" Foreground="#FF909090" Background="{x:Null}"/>
+                <TextBox x:Name="TB_Channels" HorizontalAlignment="Left" Margin="373,52,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="27" TextAlignment="Right"/>
+                <Label Content="Use 32-bit FP" HorizontalAlignment="Left" Margin="281,0,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.07,0.028" Width="87"/>
+                <Label Content="Sample rate" HorizontalAlignment="Left" Margin="281,24,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.07,0.028" Width="87"/>
+                <Label Content="Channel count" HorizontalAlignment="Left" Margin="281,48,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.07,0.028" Width="87"/>
+                <TextBox x:Name="TB_Time" HorizontalAlignment="Left" Margin="530,4,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="29" TextAlignment="Right"/>
+                <Label Content="min" HorizontalAlignment="Left" Margin="559,0,0,0" VerticalAlignment="Top" Foreground="#FF909090" Background="{x:Null}"/>
+                <Label Content="Averaging time" HorizontalAlignment="Left" Margin="435,0,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.07,0.028" Width="91"/>
+                <TextBox x:Name="TB_Dbcorr" HorizontalAlignment="Left" Margin="530,28,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="29" TextAlignment="Right"/>
+                <Label Content="dB" HorizontalAlignment="Left" Margin="559,24,0,0" VerticalAlignment="Top" Foreground="#FF909090" Background="{x:Null}"/>
+                <Label Content="dB calibration" HorizontalAlignment="Left" Margin="435,24,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.07,0.028" Width="91"/>
+                <Label x:Name="L_Value" Margin="0,0,15,0" Height="75" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right" Width="110">
+                    <Label.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform AngleX="0.503"/>
+                            <RotateTransform/>
+                            <TranslateTransform X="0.241"/>
+                        </TransformGroup>
+                    </Label.RenderTransform>
+                </Label>
+                <TextBox x:Name="TB_Threshold" HorizontalAlignment="Left" Margin="670,4,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="29" TextAlignment="Right"/>
+                <Label Content="dB" HorizontalAlignment="Left" Margin="699,0,0,0" VerticalAlignment="Top" Foreground="#FF909090" Background="{x:Null}"/>
+                <Label Content="Threshold" HorizontalAlignment="Left" Margin="601,0,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.07,0.028" Width="64"/>
+                <Button x:Name="BTN_Bus" Content="Bus" HorizontalAlignment="Left" Margin="435,51,0,0" VerticalAlignment="Top" Width="90" Click="BTN_Bus_Click"/>
+                <TextBox x:Name="TB_Bus" HorizontalAlignment="Left" Margin="530,52,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="29" TextAlignment="Right" RenderTransformOrigin="0.534,0.614"/>
+                <TextBox x:Name="TB_FadeTime" HorizontalAlignment="Left" Margin="670,52,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="29" TextAlignment="Right"/>
+                <Label Content="dB/min" HorizontalAlignment="Left" Margin="699,48,0,0" VerticalAlignment="Top" Foreground="#FF909090" Background="{x:Null}"/>
+                <Label Content="Fade rate" HorizontalAlignment="Left" Margin="601,48,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.07,0.028" Width="64" Height="28"/>
+                <TextBox x:Name="TB_ReturnTo" HorizontalAlignment="Left" Margin="670,0,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Center" Width="29" TextAlignment="Right"/>
+                <Label Content="dB" HorizontalAlignment="Left" Margin="699,0,0,0" VerticalAlignment="Center" Foreground="#FF909090" Background="{x:Null}"/>
+                <Label Content="Return to" HorizontalAlignment="Left" Margin="601,0,0,0" VerticalAlignment="Center" RenderTransformOrigin="0.07,0.028" Width="64"/>
+                <Button x:Name="BTN_Restart" Content="Restart" VerticalAlignment="Center" Click="BTN_Restart_Click" Margin="0,0,142,0" Background="#FFFFFFA0" HorizontalAlignment="Right" Width="100"/>
+            </Grid>
+        </GroupBox>
+    </Grid>
+</Window>
